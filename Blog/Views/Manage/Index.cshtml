@@ -1,0 +1,30 @@
+﻿@model DL.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Zarządzanie kontem.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Hasło:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+        {
+            @Html.ActionLink("Zmień hasło.", "ChangePassword")
+    }
+    else
+    {
+        @Html.ActionLink("Stwórz nowe hasło.", "SetPassword")
+}
+            ]
+        </dd>
+       
+        <dt>Dane:</dt>
+        @Html.Action("GetData", "Manage")
+    </dl>
+</div>

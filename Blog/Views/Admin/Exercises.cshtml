@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DL.Models.Exercise>
+
+<p>
+    @Html.ActionLink("Stwórz nowe", "AddExercise")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VideoUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Difficulty)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VideoUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Difficulty)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "EditExercise", new { id = item.Id }) |
+            @Html.ActionLink("Szczegóły", "DetailsExercise", new { id = item.Id }) |
+            @Html.ActionLink("Usuń", "DeleteExercise", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

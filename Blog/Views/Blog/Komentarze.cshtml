@@ -1,0 +1,67 @@
+﻿@using DL.ViewModels
+@using Microsoft.AspNet.Identity;
+@model DL.ViewModels.BlogViewModel
+<div class="text-center col-md-8 col-md-offset-2" style="padding-top:5px">
+
+    @foreach (PostViewModel p in ViewBag.Post)
+    {
+
+        <iframe width="560"
+                height="315"
+                src="@Url.Content(String.Format("http://www.youtube.com/embed/" + p.VideoUrl))"
+                frameborder="0"
+                allowfullscreen></iframe>
+        <h2>@Html.DisplayFor(model => p.Title)</h2>
+
+        <div class="jumbotron"><h5>@Html.DisplayFor(model => p.Text)</h5></div>
+    }
+    @Html.ActionLink("Napisz komentarz", "AddComment", new { id = Url.RequestContext.RouteData.Values["id"] })
+
+    @foreach (CommentViewModel c in ViewBag.Comments)
+    {
+        if (c.UserProfile.OwnerId.Equals(@User.Identity.GetUserId()))
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="thumbnail">
+                            <img class="img-responsive user-photo" src="@Url.Content(String.Format(c.UserProfile.PhotoUrl))" alt="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        </div><!-- /thumbnail -->
+                    </div><!-- /col-sm-1 -->
+                    <div class="col-sm-10">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="text-align:left">
+                                <strong>@Html.DisplayFor(model => c.UserProfile.Name) @Html.DisplayFor(model => c.UserProfile.Surname)</strong> <span class="text-muted">@Html.DisplayFor(model => c.Date)</span><span style="float:right">@Html.ActionLink("Edytuj", "EditComment", new { id = c.Id }) </span>
+                            </div>
+                            <div class="panel-body" style="text-align:left">
+                                @Html.DisplayFor(model => c.Text)
+                            </div><!-- /panel-body -->
+                        </div><!-- /panel panel-default -->
+                    </div><!-- /col-sm-5 -->
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="thumbnail">
+                            <img class="img-responsive user-photo" src="@Url.Content(String.Format(c.UserProfile.PhotoUrl))" alt="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        </div><!-- /thumbnail -->
+                    </div><!-- /col-sm-1 -->
+                    <div class="col-sm-10">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="text-align:left">
+                                <strong>@Html.DisplayFor(model => c.UserProfile.Name) @Html.DisplayFor(model => c.UserProfile.Surname)</strong> <span class="text-muted">@Html.DisplayFor(model => c.Date)</span>
+                            </div>
+                            <div class="panel-body" style="text-align:left">
+                                @Html.DisplayFor(model => c.Text)
+                            </div><!-- /panel-body -->
+                        </div><!-- /panel panel-default -->
+                    </div><!-- /col-sm-5 -->
+                </div>
+            </div>
+        }
+    }
+    </div>

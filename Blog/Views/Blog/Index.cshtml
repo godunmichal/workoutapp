@@ -1,0 +1,24 @@
+﻿@using DL.ViewModels
+@model DL.ViewModels.BlogViewModel
+    
+<div class="text-center col-md-8 col-md-offset-2">
+    <h1>Ostatnie posty:</h1>
+    @foreach (PostViewModel p in ViewBag.Posts)
+    {
+        <div class="jumbotron">
+            <div style="display:inline-block">
+                <iframe width="540"
+                        height="315"
+                        src="@Url.Content(String.Format("http://www.youtube.com/embed/" + p.VideoUrl))"
+                        frameborder="0"
+                        allowfullscreen></iframe>
+                <div class="caption">
+                    <h3>@Html.DisplayFor(model => p.Title)</h3>
+                    <h4>@Html.ActionLink("Więcej...", "Komentarze", new { id = p.Id })</h4>
+                </div>
+
+
+            </div>
+        </div>
+    }
+</div>

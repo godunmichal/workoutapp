@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DL.Models.Exercise>
+<h1>Spis ćwiczeń</h1>
+
+
+<p>
+    @using (Html.BeginForm("Exercises", "Blog", FormMethod.Get))
+    {
+    <div class="jumbotron">
+        <h2>Filtruj ćwiczenia</h2>
+            Poziom trudności: @Html.DropDownList("Difficulty",new List<SelectListItem>
+                    {
+                    new SelectListItem{ Text = "All", Value = "" },
+                    new SelectListItem{ Text = "Negative", Value = "0" },
+                    new SelectListItem{ Text = "Beginner", Value = "1" },
+                    new SelectListItem{ Text = "Intermediate", Value = "2" },
+                    new SelectListItem{ Text = "Advanced", Value = "3" }
+                    }, new { @class = "form-control" })
+
+            Nazwa ćwiczenia: @Html.TextBox("SearchString", null, new { @class = "form-control" })
+
+                <input type="submit" value="Filtruj" class="btn btn-default" />
+     </div>
+
+}
+</p>
+    <table class="table table-dark">
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Difficulty)
+                </td>
+                <td>
+                    <iframe width="540"
+                            height="315"
+                            src="@Url.Content(String.Format("http://www.youtube.com/embed/" + item.VideoUrl))"
+                            frameborder="0"
+                            allowfullscreen></iframe>
+                </td>
+            </tr>
+        }
+
+    </table>
+

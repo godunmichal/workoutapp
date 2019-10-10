@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DL.Models.Exercise>
+
+<div class="training">
+    <img border="0" alt="Początkujący" src="~/Content/Images/Poczatkujacy.jpg">
+</div>
+<div class="bmi">
+    @ViewBag.BMI @ViewBag.Waga
+</div>
+<h4>Poniżej został wygenerowany trening odpowiedni do twoich umiejętności.</h4>
+<table class="table table-dark">
+    <tr>
+        <th>
+            Ilość serii:
+        </th>
+        <th>
+            Ilość powtórzeń w serii:
+        </th>
+        <th>
+            Nazwa ćwiczenia:
+        </th>
+        <th>
+            Sposób wykonania:
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                3x
+            </td>
+            <td>
+                @if (@Html.DisplayFor(modelItem => item.Text).ToString().Equals("Dipy"))
+                {
+                    @ViewBag.IloscDip;
+
+                }
+                else if (@Html.DisplayFor(modelItem => item.Text).ToString().Equals("Pompki"))
+                {
+                    @ViewBag.IloscPomp;
+                }
+                else if (@Html.DisplayFor(modelItem => item.Text).ToString().Equals("Podciąganie"))
+                {
+                    @ViewBag.IloscPod;
+                }
+                else if (@Html.DisplayFor(modelItem => item.Text).ToString().Equals("Brzuch"))
+                {
+                    @ViewBag.IloscBrzuch;
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                <iframe width="540"
+                        height="315"
+                        src="@Url.Content(String.Format("http://www.youtube.com/embed/" + item.VideoUrl))"
+                        frameborder="0"
+                        allowfullscreen></iframe>
+            </td>
+        </tr>
+    }
+
+</table>

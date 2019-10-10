@@ -1,0 +1,16 @@
+﻿@model DL.ViewModels.PostViewModel
+
+
+
+<div class="col-sm-6 col-md-4 col-lg-3">
+    <div class="thumbnail">
+        <iframe width="560"
+                height="315"
+                src="@Url.Content(String.Format("http://www.youtube.com/embed/" + Model.VideoUrl))"
+                frameborder="0"
+                allowfullscreen></iframe>
+        <div class="caption">
+            <h3>@Html.DisplayFor(model => model.Title)</h3>
+        </div>
+    </div>
+</div>
